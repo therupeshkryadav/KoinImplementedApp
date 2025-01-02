@@ -1,4 +1,4 @@
-package com.cleanarchitecture.app.di.modules
+package com.cleanarchitecture.app.di
 
 import com.cleanarchitecture.app.domain.usecase.AddGreetingUseCase
 import com.cleanarchitecture.app.domain.usecase.GetGreetingUseCase

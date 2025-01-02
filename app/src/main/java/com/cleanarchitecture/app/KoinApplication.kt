@@ -1,7 +1,7 @@
 package com.cleanarchitecture.app
 
 import android.app.Application
-import com.cleanarchitecture.app.di.modules.appModule
+import com.cleanarchitecture.app.di.appModule
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.context.startKoin
 
