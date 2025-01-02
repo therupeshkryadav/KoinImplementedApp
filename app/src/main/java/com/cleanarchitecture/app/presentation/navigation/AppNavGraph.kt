@@ -1,7 +1,6 @@
 package com.cleanarchitecture.app.presentation.navigation
 
 import androidx.compose.runtime.Composable
-import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
@@ -9,25 +8,23 @@ import com.cleanarchitecture.app.presentation.ui.screens.AddScreen
 import com.cleanarchitecture.app.presentation.ui.screens.HomeScreen
 import com.cleanarchitecture.app.presentation.ui.screens.ItemListScreen
 import com.cleanarchitecture.app.presentation.viewModel.GreetingViewModel
+import org.koin.androidx.compose.koinViewModel
 
 @Composable
 fun AppNavGraph() {
     val navController = rememberNavController()
 
-    // Use GreetingViewModel to manage the list of greetings
-    val greetingViewModel: GreetingViewModel = viewModel()
+    // Use Koin to inject GreetingViewModel
+    val greetingViewModel: GreetingViewModel = koinViewModel()
 
-    // Load initial greetings into the ViewModel
-    greetingViewModel.loadGreetings()
-
-    // App Start Flow (GreetingScreen to ItemListScreen)
+    // App Start Flow (HomeScreen to ItemListScreen)
     NavHost(navController, startDestination = Route.HomeScreen.route) {
 
-        // GreetingScreen
+        // HomeScreen
         composable(Route.HomeScreen.route) {
             HomeScreen(
                 navController = navController,
-                itemsList = greetingViewModel.itemsList,
+                itemsList = greetingViewModel.greetings.value, // Use greetings from ViewModel
                 onAddClick = {
                     navController.navigate(Route.AddScreen.route)
                 },
@@ -43,7 +40,7 @@ fun AppNavGraph() {
                 onAddCompleted = { message, type ->
                     // Add the new item to the list with both message and type using ViewModel
                     greetingViewModel.addGreeting(message, type)
-                    navController.popBackStack() // Navigate back to GreetingScreen
+                    navController.popBackStack() // Navigate back to HomeScreen
                 },
                 onBackClick = {
                     navController.popBackStack()
@@ -57,7 +54,7 @@ fun AppNavGraph() {
                 onBackClick = {
                     navController.popBackStack()
                 },
-                itemsList = greetingViewModel.itemsList // Pass the shared list from ViewModel
+                itemsList = greetingViewModel.greetings.value // Pass the shared list from ViewModel
             )
         }
     }

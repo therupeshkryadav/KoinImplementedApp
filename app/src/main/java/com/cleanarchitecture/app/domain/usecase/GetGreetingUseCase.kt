@@ -1,11 +1,14 @@
 package com.cleanarchitecture.app.domain.usecase
 
 import com.cleanarchitecture.app.domain.model.Greeting
-import com.cleanarchitecture.app.domain.repository.GreetingRepository
 
-class GetGreetingUseCase(private val greetingRepository: GreetingRepository) {
-    suspend fun execute(): Greeting {
-        return greetingRepository.getGreeting()
+class GetGreetingUseCase {
+    operator fun invoke(): List<Greeting> {
+        return listOf(
+            Greeting("Hello from Clean Architecture!", "Greeting"),
+            Greeting("Welcome to Compose!", "Information"),
+            Greeting("Enjoy building your app!", "Motivation")
+        )
     }
 }
 
