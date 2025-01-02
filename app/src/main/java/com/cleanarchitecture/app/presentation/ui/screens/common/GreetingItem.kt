@@ -3,49 +3,51 @@ package com.cleanarchitecture.app.presentation.ui.screens.common
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.cleanarchitecture.app.domain.model.Greeting
-import com.cleanarchitecture.app.presentation.ui.screens.GreetingScreen
 
-// GreetingItem Composable
 @Composable
-fun GreetingItem(item: Greeting) {
-    // Row for each greeting item
+fun GreetingItem(
+    item: Greeting,
+    sendToItemDetails: (Greeting) -> Unit // Pass the greeting to the detail screen
+) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
             .padding(8.dp)
             .background(Color.LightGray)
+            .clickable { sendToItemDetails(item) } // Navigate to the detail screen with the clicked item
             .border(width = 1.dp, Color.Black)
             .padding(8.dp)
     ) {
-        // Box for type (tag) on the left
+        // Type display
         Box(
             modifier = Modifier
-                .width(100.dp) // Adjust width for type display
+                .width(100.dp)
                 .padding(end = 8.dp),
             contentAlignment = Alignment.Center
         ) {
             Text(
-                text = item.type, // Display the type of the greeting
+                text = item.type,
                 color = Color.Red,
                 fontSize = 12.sp,
                 modifier = Modifier.background(Color.White).padding(4.dp)
             )
         }
 
-        // Box for the message content on the right
+        // Message display
         Box(
             modifier = Modifier
                 .fillMaxWidth()
@@ -53,7 +55,7 @@ fun GreetingItem(item: Greeting) {
             contentAlignment = Alignment.CenterStart
         ) {
             Text(
-                text = item.message, // Display the message of the greeting
+                text = item.message,
                 color = Color.Black,
                 fontSize = 18.sp
             )
@@ -61,9 +63,13 @@ fun GreetingItem(item: Greeting) {
     }
 }
 
-// Preview for GreetingScreen
+
+// Preview for GreetingItem Composable
 @Preview(showBackground = true)
 @Composable
 fun DefaultPreview() {
-    GreetingItem(Greeting("Hello from Clean Architecture!", "Greeting"))
+    GreetingItem(
+        item = Greeting("Hello from Clean Architecture!", "Greeting"),
+        sendToItemDetails = { /* Simulate navigation to ItemDetailScreen */ }
+    )
 }

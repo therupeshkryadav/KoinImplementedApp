@@ -1,4 +1,4 @@
-package com.cleanarchitecture.app.presentation
+package com.cleanarchitecture.app
 
 import android.app.Application
 import com.cleanarchitecture.app.di.modules.appModule

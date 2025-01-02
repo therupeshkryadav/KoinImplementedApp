@@ -1,4 +1,4 @@
-package com.cleanarchitecture.app.data.repository
+package com.cleanarchitecture.app.data.source.repository
 
 import com.cleanarchitecture.app.domain.model.Greeting
 import com.cleanarchitecture.app.domain.repository.GreetingRepository

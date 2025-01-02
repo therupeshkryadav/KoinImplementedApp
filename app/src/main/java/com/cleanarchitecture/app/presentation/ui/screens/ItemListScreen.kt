@@ -1,8 +1,11 @@
 package com.cleanarchitecture.app.presentation.ui.screens
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.border
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.Button
@@ -52,7 +55,7 @@ fun ItemListScreen(
                     .border(width = 2.dp, color = Color.Black)
             ) {
                 items(itemsList) { item ->
-                    GreetingItem(item = item) // Using the GreetingItem composable
+                    GreetingItem(item = item, sendToItemDetails = {}) // Using the GreetingItem composable
                 }
             }
         }

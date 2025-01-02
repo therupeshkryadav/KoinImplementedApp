@@ -3,7 +3,7 @@ package com.cleanarchitecture.app.presentation.navigation
 sealed class Route(
     val route: String
 ) {
-    object GreetingScreen : Route(route = "greetingScreen")
+    object HomeScreen : Route(route = "homeScreen")
     object AddScreen : Route(route = "addScreen")
-    object ItemListScreen : Route(route = "ItemlistScreen")
+    object ItemListScreen : Route(route = "itemListScreen")
 }

@@ -15,14 +15,17 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavHostController
+import androidx.navigation.compose.rememberNavController
 import com.cleanarchitecture.app.domain.model.Greeting
 import com.cleanarchitecture.app.presentation.ui.screens.common.GreetingItem
 
 @Composable
-fun GreetingScreen(
+fun HomeScreen(
     itemsList: List<Greeting>, // Pass the list dynamically
     onAddClick: () -> Unit,
-    onItemListClick: () -> Unit
+    onItemListClick: () -> Unit,
+    navController: NavHostController
 ) {
     Column(
         modifier = Modifier
@@ -32,7 +35,7 @@ fun GreetingScreen(
     ) {
         // Title of the screen
         Text(
-            text = "Greeting Screen",
+            text = "Home Screen",
             style = TextStyle(fontSize = 24.sp),
             modifier = Modifier.padding(bottom = 16.dp)
         )
@@ -45,7 +48,12 @@ fun GreetingScreen(
                 .border(width = 2.dp, Color.Black)
         ) {
             items(itemsList) { item ->
-                GreetingItem(item = item) // Using the GreetingItem composable
+                GreetingItem(
+                    item = item,
+                    sendToItemDetails = {
+                        // Navigate to ItemDetailScreen and pass the Greeting item
+                    }
+                )
             }
         }
 
@@ -95,14 +103,15 @@ fun GreetingScreen(
 @Preview(showBackground = true)
 @Composable
 fun DefaultPreview() {
-    GreetingScreen(
+    HomeScreen(
         itemsList = listOf(
             Greeting("Hello from Clean Architecture!", "Greeting"),
             Greeting("Welcome to Compose!", "Information"),
             Greeting("Enjoy building your app!", "Motivation")
         ),
         onAddClick = {},
-        onItemListClick = {}
+        onItemListClick = {},
+        navController = rememberNavController()
     )
 }
 
