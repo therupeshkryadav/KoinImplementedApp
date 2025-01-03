@@ -13,7 +13,28 @@ class GreetingViewModel(
     private val addGreetingUseCase: AddGreetingUseCase
 ) : ViewModel() {
 
-    var greetings = mutableStateOf<List<Greeting>>(emptyList())
+    var greetings = mutableStateOf<List<Greeting>>(listOf(
+        Greeting(message = "message 1", type = "type 1"),
+        Greeting(message = "message 2", type = "type 2"),
+        Greeting(message = "message 3", type = "type 3"),
+        Greeting(message = "message 4", type = "type 4"),
+        Greeting(message = "message 5", type = "type 5"),
+        Greeting(message = "message 1", type = "type 1"),
+        Greeting(message = "message 2", type = "type 2"),
+        Greeting(message = "message 3", type = "type 3"),
+        Greeting(message = "message 4", type = "type 4"),
+        Greeting(message = "message 5", type = "type 5"),
+        Greeting(message = "message 1", type = "type 1"),
+        Greeting(message = "message 2", type = "type 2"),
+        Greeting(message = "message 3", type = "type 3"),
+        Greeting(message = "message 4", type = "type 4"),
+        Greeting(message = "message 5", type = "type 5"),
+        Greeting(message = "message 1", type = "type 1"),
+        Greeting(message = "message 2", type = "type 2"),
+        Greeting(message = "message 3", type = "type 3"),
+        Greeting(message = "message 4", type = "type 4"),
+        Greeting(message = "message 5", type = "type 5")
+    ))
         private set
 
     fun loadGreetings() {

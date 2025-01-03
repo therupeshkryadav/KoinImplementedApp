@@ -1,6 +1,7 @@
 package com.cleanarchitecture.app.presentation.navigation
 
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
@@ -16,6 +17,11 @@ fun AppNavGraph() {
 
     // Use Koin to inject GreetingViewModel
     val greetingViewModel: GreetingViewModel = koinViewModel()
+
+    // Trigger `loadGreetings` when the AppNavGraph is initialized
+    LaunchedEffect(Unit) {
+        greetingViewModel.loadGreetings()
+    }
 
     // App Start Flow (HomeScreen to ItemListScreen)
     NavHost(navController, startDestination = Route.HomeScreen.route) {
