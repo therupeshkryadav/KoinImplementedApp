@@ -26,6 +26,7 @@ fun ItemListScreen(
     onBackClick: () -> Unit,
     itemsList: List<Greeting>, // Pass the list dynamically
 ) {
+
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -55,7 +56,16 @@ fun ItemListScreen(
                     .border(width = 2.dp, color = Color.Black)
             ) {
                 items(itemsList) { item ->
-                    GreetingItem(item = item, sendToItemDetails = {}) // Using the GreetingItem composable
+
+                    // Pass clicked state to GreetingItem
+                    GreetingItem(
+                        item = item,
+                        itemTint = Color.Red,
+                        sendToItemDetails = {
+                            // Handle navigation or any other action
+                        },
+                        modifier = Modifier
+                    )
                 }
             }
         }
@@ -73,13 +83,13 @@ fun ItemListScreen(
 @Preview(showBackground = true)
 @Composable
 fun ItemListScreenPreview() {
-    // Sample data for preview
     val sampleItems = listOf(
         Greeting("Hello from Clean Architecture!", "Greeting"),
         Greeting("Welcome to Compose!", "Information"),
         Greeting("Enjoy building your app!", "Motivation")
     )
 
+    // Preview with simulated hover on the second item
     ItemListScreen(
         onBackClick = {},
         itemsList = sampleItems
@@ -95,3 +105,4 @@ fun ItemListScreenEmptyPreview() {
         itemsList = emptyList()
     )
 }
+

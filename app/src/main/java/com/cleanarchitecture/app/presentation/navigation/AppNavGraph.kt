@@ -47,7 +47,9 @@ fun AppNavGraph() {
             val type = backStackEntry.arguments?.getString("type")
             ItemDetailScreen(
                 item = Greeting(message ?: "", type ?: ""),
-                onBackClick = { navController.popBackStack() }
+                onBackClick = { navController.popBackStack() },
+                onEditClick = {},
+                onDeleteClick = {}
             )
         }
 

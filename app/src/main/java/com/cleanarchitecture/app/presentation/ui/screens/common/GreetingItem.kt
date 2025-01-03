@@ -21,13 +21,15 @@ import com.cleanarchitecture.app.domain.model.Greeting
 @Composable
 fun GreetingItem(
     item: Greeting,
-    sendToItemDetails: (Greeting) -> Unit // Pass the greeting to the detail screen
-) {
+    itemTint: Color,
+    sendToItemDetails: (Greeting) -> Unit, // Pass the greeting to the detail screen
+    modifier: Modifier = Modifier
+    ) {
     Row(
-        modifier = Modifier
+        modifier = modifier
             .fillMaxWidth()
             .padding(8.dp)
-            .background(Color.LightGray)
+            .background(itemTint)
             .clickable { sendToItemDetails(item) } // Navigate to the detail screen with the clicked item
             .border(width = 1.dp, Color.Black)
             .padding(8.dp)
@@ -56,7 +58,7 @@ fun GreetingItem(
         ) {
             Text(
                 text = item.message,
-                color = Color.Black,
+                color = Color.White,
                 fontSize = 18.sp
             )
         }
@@ -70,6 +72,7 @@ fun GreetingItem(
 fun DefaultPreview() {
     GreetingItem(
         item = Greeting("Hello from Clean Architecture!", "Greeting"),
+        itemTint = Color.Black,
         sendToItemDetails = { /* Simulate navigation to ItemDetailScreen */ }
     )
 }

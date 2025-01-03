@@ -50,6 +50,7 @@ fun HomeScreen(
             items(itemsList) { item ->
                 GreetingItem(
                     item = item,
+                    itemTint = Color.Black,
                     sendToItemDetails = {
                         navController.navigate("item_detail_screen/${item.message}/${item.type}")
                         // Navigate to ItemDetailScreen and pass the Greeting item
