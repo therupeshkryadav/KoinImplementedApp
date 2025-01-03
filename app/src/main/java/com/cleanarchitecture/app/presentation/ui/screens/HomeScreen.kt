@@ -52,8 +52,8 @@ fun HomeScreen(
                     item = item,
                     itemTint = Color.Black,
                     sendToItemDetails = {
-                        navController.navigate("item_detail_screen/${item.message}/${item.type}")
-                        // Navigate to ItemDetailScreen and pass the Greeting item
+                        // Ensure correct navigation and pass the "showDeleteButton" as false
+                        navController.navigate("item_detail_screen/${item.message}/${item.type}/${false}")
                     }
                 )
             }

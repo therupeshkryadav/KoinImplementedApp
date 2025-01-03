@@ -1,5 +1,6 @@
 package com.cleanarchitecture.app.presentation.ui.screens
 
+import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
@@ -28,8 +29,12 @@ fun ItemDetailScreen(
     item: Greeting,
     onBackClick: () -> Unit,
     onEditClick: () -> Unit,
-    onDeleteClick: () -> Unit
+    onDeleteClick: () -> Unit,
+    showDeleteButton: Boolean? // Make sure it's nullable to handle null values
 ) {
+    // Check the value of showDeleteButton
+    Log.d("Testx", "showDeleteButton: $showDeleteButton")
+
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -110,23 +115,27 @@ fun ItemDetailScreen(
                 )
             }
 
-            // Delete Button
-            Button(
-                onClick = { onDeleteClick() },
-                modifier = Modifier
-                    .weight(1f)
-                    .padding(8.dp),
-                contentPadding = PaddingValues(vertical = 12.dp)
-            ) {
-                Text(
-                    text = "Delete",
-                    color = Color.White,
-                    fontSize = 18.sp
-                )
+            // Conditionally Show Delete Button
+            if (showDeleteButton == true) {
+                // Delete Button
+                Button(
+                    onClick = { onDeleteClick() },
+                    modifier = Modifier
+                        .weight(1f)
+                        .padding(8.dp),
+                    contentPadding = PaddingValues(vertical = 12.dp)
+                ) {
+                    Text(
+                        text = "Delete",
+                        color = Color.White,
+                        fontSize = 18.sp
+                    )
+                }
             }
         }
     }
 }
+
 
 @Preview(showBackground = true)
 @Composable
@@ -135,6 +144,7 @@ fun ItemDetailScreenPreview() {
         item = Greeting("Hello from Clean Architecture!", "Greeting"),
         onBackClick = {},
         onEditClick = {},
-        onDeleteClick = {}
+        onDeleteClick = {},
+        showDeleteButton = true
     )
 }

@@ -18,12 +18,15 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavHostController
+import androidx.navigation.compose.rememberNavController
 import com.cleanarchitecture.app.domain.model.Greeting
 import com.cleanarchitecture.app.presentation.ui.screens.common.GreetingItem
 
 @Composable
 fun ItemListScreen(
     onBackClick: () -> Unit,
+    navController: NavHostController,
     itemsList: List<Greeting>, // Pass the list dynamically
 ) {
 
@@ -60,9 +63,10 @@ fun ItemListScreen(
                     // Pass clicked state to GreetingItem
                     GreetingItem(
                         item = item,
-                        itemTint = Color.Red,
+                        itemTint = Color.Blue,
                         sendToItemDetails = {
-                            // Handle navigation or any other action
+                            // Navigate to ItemDetailScreen and pass the necessary arguments
+                            navController.navigate("item_detail_screen/${item.message}/${item.type}/${true}") // Show delete button as true
                         },
                         modifier = Modifier
                     )
@@ -92,7 +96,8 @@ fun ItemListScreenPreview() {
     // Preview with simulated hover on the second item
     ItemListScreen(
         onBackClick = {},
-        itemsList = sampleItems
+        itemsList = sampleItems,
+        navController = rememberNavController()
     )
 }
 
@@ -102,7 +107,8 @@ fun ItemListScreenEmptyPreview() {
     // Empty list for preview
     ItemListScreen(
         onBackClick = {},
-        itemsList = emptyList()
+        itemsList = emptyList(),
+        navController = rememberNavController()
     )
 }
 

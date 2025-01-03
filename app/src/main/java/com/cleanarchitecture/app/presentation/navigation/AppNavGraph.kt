@@ -42,14 +42,17 @@ fun AppNavGraph() {
             )
         }
 
-        composable("item_detail_screen/{message}/{type}") { backStackEntry ->
+        composable("item_detail_screen/{message}/{type}/{showDeleteButton}") { backStackEntry ->
             val message = backStackEntry.arguments?.getString("message")
             val type = backStackEntry.arguments?.getString("type")
+            val showDeleteButton = backStackEntry.arguments?.getString("showDeleteButton")?.toBoolean() ?: false  // Default to false if null
+
             ItemDetailScreen(
                 item = Greeting(message ?: "", type ?: ""),
                 onBackClick = { navController.popBackStack() },
                 onEditClick = {},
-                onDeleteClick = {}
+                onDeleteClick = {},
+                showDeleteButton = showDeleteButton // Here, pass the value correctly
             )
         }
 
@@ -70,6 +73,7 @@ fun AppNavGraph() {
         // ItemListScreen
         composable(Route.ItemListScreen.route) {
             ItemListScreen(
+                navController = navController,
                 onBackClick = {
                     navController.popBackStack()
                 },
