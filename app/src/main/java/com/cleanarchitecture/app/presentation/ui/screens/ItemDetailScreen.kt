@@ -15,7 +15,7 @@ import com.cleanarchitecture.app.domain.model.Greeting
 
 @Composable
 fun ItemDetailScreen(
-    greeting: Greeting,
+    item: Greeting,
     onBackClick: () -> Unit
 ) {
     Column(
@@ -40,13 +40,13 @@ fun ItemDetailScreen(
 
         // Display Greeting Message and Type
         Text(
-            text = "Message: ${greeting.message}",
+            text = "Message: ${item.message}",
             style = TextStyle(fontSize = 20.sp),
             modifier = Modifier.padding(bottom = 8.dp)
         )
 
         Text(
-            text = "Type: ${greeting.type}",
+            text = "Type: ${item.type}",
             style = TextStyle(fontSize = 18.sp, color = Color.Gray)
         )
     }
@@ -56,7 +56,7 @@ fun ItemDetailScreen(
 @Composable
 fun ItemDetailScreenPreview() {
     ItemDetailScreen(
-        greeting = Greeting("Hello from Clean Architecture!", "Greeting"),
+        item = Greeting("Hello from Clean Architecture!", "Greeting"),
         onBackClick = {}
     )
 }

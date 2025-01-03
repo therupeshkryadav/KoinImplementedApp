@@ -12,7 +12,7 @@ class GreetingRepositoryImpl : GreetingRepository {
         Greeting(message = "Preloaded message 4", type = "type 4"),
         Greeting(message = "Preloaded message 5", type = "type 5")
     )
-//    private val greetingsList = mutableListOf<Greeting>() // from where this list should come according to clean architecture
+// from where this list should come according to clean architecture
 
     override suspend fun getGreeting(): List<Greeting> {
         return greetingsList

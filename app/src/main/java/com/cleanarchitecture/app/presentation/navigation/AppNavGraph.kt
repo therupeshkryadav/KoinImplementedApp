@@ -5,8 +5,10 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.cleanarchitecture.app.domain.model.Greeting
 import com.cleanarchitecture.app.presentation.ui.screens.AddScreen
 import com.cleanarchitecture.app.presentation.ui.screens.HomeScreen
+import com.cleanarchitecture.app.presentation.ui.screens.ItemDetailScreen
 import com.cleanarchitecture.app.presentation.ui.screens.ItemListScreen
 import com.cleanarchitecture.app.presentation.viewModel.GreetingViewModel
 import org.koin.androidx.compose.koinViewModel
@@ -37,6 +39,15 @@ fun AppNavGraph() {
                 onItemListClick = {
                     navController.navigate(Route.ItemListScreen.route)
                 }
+            )
+        }
+
+        composable("item_detail_screen/{message}/{type}") { backStackEntry ->
+            val message = backStackEntry.arguments?.getString("message")
+            val type = backStackEntry.arguments?.getString("type")
+            ItemDetailScreen(
+                item = Greeting(message ?: "", type ?: ""),
+                onBackClick = { navController.popBackStack() }
             )
         }
 
