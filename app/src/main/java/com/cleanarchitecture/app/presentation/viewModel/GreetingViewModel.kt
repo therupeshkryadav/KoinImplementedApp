@@ -13,34 +13,23 @@ class GreetingViewModel(
     private val addGreetingUseCase: AddGreetingUseCase
 ) : ViewModel() {
 
-    var greetings = mutableStateOf<List<Greeting>>(listOf(
-        Greeting(message = "message 1", type = "type 1"),
-        Greeting(message = "message 2", type = "type 2"),
-        Greeting(message = "message 3", type = "type 3"),
-        Greeting(message = "message 4", type = "type 4"),
-        Greeting(message = "message 5", type = "type 5"),
-        Greeting(message = "message 1", type = "type 1"),
-        Greeting(message = "message 2", type = "type 2"),
-        Greeting(message = "message 3", type = "type 3"),
-        Greeting(message = "message 4", type = "type 4"),
-        Greeting(message = "message 5", type = "type 5"),
-        Greeting(message = "message 1", type = "type 1"),
-        Greeting(message = "message 2", type = "type 2"),
-        Greeting(message = "message 3", type = "type 3"),
-        Greeting(message = "message 4", type = "type 4"),
-        Greeting(message = "message 5", type = "type 5"),
+    // Preloaded greetings
+    private val preloadedGreetings = listOf(
         Greeting(message = "message 1", type = "type 1"),
         Greeting(message = "message 2", type = "type 2"),
         Greeting(message = "message 3", type = "type 3"),
         Greeting(message = "message 4", type = "type 4"),
         Greeting(message = "message 5", type = "type 5")
-    ))
+    )
+
+    var greetings = mutableStateOf<List<Greeting>>(listOf())
         private set
 
     fun loadGreetings() {
         viewModelScope.launch {
-            val result = getGreetingsUseCase()
-            greetings.value = result
+            // Combine preloaded greetings with fetched greetings
+            val fetchedGreetings = getGreetingsUseCase()
+            greetings.value = preloadedGreetings + fetchedGreetings
         }
     }
 
