@@ -16,6 +16,7 @@ import org.koin.androidx.compose.koinViewModel
 @Composable
 fun AppNavGraph() {
     val navController = rememberNavController()
+    //update
 
     // Use Koin to inject GreetingViewModel
     val greetingViewModel: GreetingViewModel = koinViewModel()
