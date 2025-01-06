@@ -2,6 +2,7 @@ package com.cleanarchitecture.app.presentation.ui.screens
 
 import android.widget.Toast
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Box
@@ -60,10 +61,11 @@ fun AddScreen(onAddCompleted: (String, String) -> Unit, onBackClick: () -> Unit)
             onValueChange = { messageText.value = it },
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(vertical = 8.dp),
+                .padding(vertical = 8.dp)
+                .border(width = 1.dp, color = Color.LightGray),
             colors = TextFieldDefaults.colors(
-                unfocusedContainerColor = Color.LightGray,
-                focusedContainerColor = Color.LightGray,
+                unfocusedContainerColor = Color.White,
+                focusedContainerColor = Color.White,
                 unfocusedIndicatorColor = Color.Transparent,
                 focusedIndicatorColor = Color.Transparent
             ),
@@ -82,7 +84,8 @@ fun AddScreen(onAddCompleted: (String, String) -> Unit, onBackClick: () -> Unit)
         Box(
             modifier = Modifier
                 .fillMaxWidth()
-                .background(Color.LightGray)
+                .background(Color.White)
+                .border(width = 1.dp, color = Color.LightGray)
                 .padding(16.dp)
                 .clickable(
                     indication = null, // Remove ripple effect
@@ -107,9 +110,8 @@ fun AddScreen(onAddCompleted: (String, String) -> Unit, onBackClick: () -> Unit)
             Column(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .background(Color.White)
-                    .padding(8.dp)
                     .background(Color.LightGray)
+                    .padding(8.dp)
             ) {
                 typeOptions.forEach { type ->
                     Text(
