@@ -39,7 +39,7 @@ fun AddScreen(onAddCompleted: (String, String) -> Unit, onBackClick: () -> Unit)
 
     var expanded by remember { mutableStateOf(false) } // Control the dropdown visibility
     val selectedType = remember { mutableStateOf("") } // Store selected type
-    val typeOptions = listOf("Type 1", "Type 2", "Type 3", "Type 4", "Type 5") // Dropdown options
+    val typeOptions = listOf("Personal", "Professional", "Financial", "Educational", "Others") // Dropdown options
 
 
     Column(

@@ -50,7 +50,7 @@ fun HomeScreen(
             items(itemsList) { item ->
                 GreetingItem(
                     item = item,
-                    itemTint = Color.Black,
+                    itemTint = Color.LightGray,
                     sendToItemDetails = {
                         // Ensure correct navigation and pass the "showDeleteButton" as false
                         navController.navigate("item_detail_screen/${item.message}/${item.type}/${false}")

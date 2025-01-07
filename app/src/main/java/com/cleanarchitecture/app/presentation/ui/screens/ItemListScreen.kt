@@ -63,7 +63,7 @@ fun ItemListScreen(
                     // Pass clicked state to GreetingItem
                     GreetingItem(
                         item = item,
-                        itemTint = Color.Blue,
+                        itemTint = Color.LightGray,
                         sendToItemDetails = {
                             // Navigate to ItemDetailScreen and pass the necessary arguments
                             navController.navigate("item_detail_screen/${item.message}/${item.type}/${true}") // Show delete button as true
