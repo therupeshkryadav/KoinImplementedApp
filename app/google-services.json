@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "35066928380",
+    "project_id": "koinimplemented",
+    "storage_bucket": "koinimplemented.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:35066928380:android:f779ea0f4bc0abe6750b79",
+        "android_client_info": {
+          "package_name": "com.cleanarchitecture.app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAvCQl9PHJD5pjsy3bDOGZfJ4aiJ4Nn1uw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

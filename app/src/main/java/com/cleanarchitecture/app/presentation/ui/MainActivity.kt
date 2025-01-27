@@ -9,6 +9,7 @@ import com.cleanarchitecture.app.presentation.ui.theme.KoinImplementedAppTheme
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        // Splash screen setup
         setContent {
             KoinImplementedAppTheme {
                 AppNavGraph()
@@ -16,3 +17,5 @@ class MainActivity : ComponentActivity() {
         }
     }
 }
+
+

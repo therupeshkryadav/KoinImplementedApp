@@ -2,6 +2,8 @@ package com.cleanarchitecture.app.presentation.navigation
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
@@ -10,76 +12,99 @@ import com.cleanarchitecture.app.presentation.ui.screens.AddScreen
 import com.cleanarchitecture.app.presentation.ui.screens.HomeScreen
 import com.cleanarchitecture.app.presentation.ui.screens.ItemDetailScreen
 import com.cleanarchitecture.app.presentation.ui.screens.ItemListScreen
+import com.cleanarchitecture.app.presentation.ui.screens.LoginScreen
+import com.cleanarchitecture.app.presentation.ui.screens.SignUpScreen
+import com.cleanarchitecture.app.presentation.ui.screens.SplashScreen
 import com.cleanarchitecture.app.presentation.viewModel.GreetingViewModel
+import com.google.firebase.auth.FirebaseAuth
 import org.koin.androidx.compose.koinViewModel
 
 @Composable
 fun AppNavGraph() {
     val navController = rememberNavController()
-    //update
+    val firebaseAuth = FirebaseAuth.getInstance()
 
     // Use Koin to inject GreetingViewModel
     val greetingViewModel: GreetingViewModel = koinViewModel()
 
-    // Trigger `loadGreetings` when the AppNavGraph is initialized
-    LaunchedEffect(Unit) {
-        greetingViewModel.loadGreetings()
-    }
-
-    // App Start Flow (HomeScreen to ItemListScreen)
-    NavHost(navController, startDestination = Route.HomeScreen.route) {
-
-        // HomeScreen
-        composable(Route.HomeScreen.route) {
-            HomeScreen(
-                navController = navController,
-                itemsList = greetingViewModel.greetings.value, // Use greetings from ViewModel
-                onAddClick = {
-                    navController.navigate(Route.AddScreen.route)
-                },
-                onItemListClick = {
-                    navController.navigate(Route.ItemListScreen.route)
+    // Navigation host
+    NavHost(
+        navController = navController,
+        startDestination = Route.SplashScreen.route // Start from the splash screen
+    ) {
+        // Splash Screen
+        composable(Route.SplashScreen.route) {
+            SplashScreen {
+                // Determine the next destination based on user authentication
+                val nextRoute = if (firebaseAuth.currentUser != null) {
+                    Route.HomeScreen.route
+                } else {
+                    Route.LoginScreen.route
                 }
+                navController.navigate(nextRoute) {
+                    popUpTo(Route.SplashScreen.route) { inclusive = true }
+                }
+            }
+        }
+
+        // Login Screen
+        composable(Route.LoginScreen.route) {
+            LoginScreen(
+                onNavigateToSignUp = { navController.navigate(Route.SignUpScreen.route) }
             )
         }
 
-        composable("item_detail_screen/{message}/{type}/{showDeleteButton}") { backStackEntry ->
+        // Sign Up Screen
+        composable(Route.SignUpScreen.route) {
+            SignUpScreen(
+                onNavigateToLogin = { navController.popBackStack() }
+            )
+        }
+
+        // Home Screen
+        composable(Route.HomeScreen.route) {
+            HomeScreen(
+                navController = navController,
+                itemsList = greetingViewModel.greetings.value,
+                onAddClick = { navController.navigate(Route.AddScreen.route) },
+                onItemListClick = { navController.navigate(Route.ItemListScreen.route) }
+            )
+        }
+
+        // Item Detail Screen
+        composable(Route.ItemDetailScreen.route) { backStackEntry ->
             val message = backStackEntry.arguments?.getString("message")
             val type = backStackEntry.arguments?.getString("type")
-            val showDeleteButton = backStackEntry.arguments?.getString("showDeleteButton")?.toBoolean() ?: false  // Default to false if null
+            val showDeleteButton = backStackEntry.arguments?.getString("showDeleteButton")?.toBoolean() ?: false
 
             ItemDetailScreen(
                 item = Greeting(message ?: "", type ?: ""),
                 onBackClick = { navController.popBackStack() },
                 onEditClick = {},
                 onDeleteClick = {},
-                showDeleteButton = showDeleteButton // Here, pass the value correctly
+                showDeleteButton = showDeleteButton
             )
         }
 
-        // AddScreen
+        // Add Screen
         composable(Route.AddScreen.route) {
             AddScreen(
                 onAddCompleted = { message, type ->
-                    // Add the new item to the list with both message and type using ViewModel
                     greetingViewModel.addGreeting(message, type)
-                    navController.popBackStack() // Navigate back to HomeScreen
-                },
-                onBackClick = {
                     navController.popBackStack()
-                }
+                },
+                onBackClick = { navController.popBackStack() }
             )
         }
 
-        // ItemListScreen
+        // Item List Screen
         composable(Route.ItemListScreen.route) {
             ItemListScreen(
                 navController = navController,
-                onBackClick = {
-                    navController.popBackStack()
-                },
-                itemsList = greetingViewModel.greetings.value // Pass the shared list from ViewModel
+                onBackClick = { navController.popBackStack() },
+                itemsList = greetingViewModel.greetings.value
             )
         }
     }
 }
+
